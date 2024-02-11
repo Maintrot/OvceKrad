@@ -10,8 +10,8 @@ export default function Header() {
                 </div>
                 <div className='block-nav'>
                     <nav>
-                        <button className='nav-btn'><Link to='/weather'>Weather</Link></button>
-                        <button className='nav-btn'><Link to='/'>Home</Link></button>
+                        <Link className='link-btn' to='/weather'>Weather</Link>
+                        <Link className='link-btn' to='/'>Home</Link>
                     </nav>
                 </div>
             </header>
