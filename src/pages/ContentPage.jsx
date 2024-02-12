@@ -4,14 +4,16 @@ import Content from "@/components/Content.jsx"
 import { useState } from "react"
 
 export default function ContentPage() {
-    const [usercity, setUserCity] = useState('Bishkek')
-    const [userTemp, setUserTemp] = useState('270')
-    const [userSpeedOf, setUserSpeedOf] = useState('666')
+    const [weatherInfo, setWeatherInfo] = useState({
+        city: 'bishkek',
+        tempOf: 0,
+        speedOf: 0
+    })
 
     return (
         <div className="wrapper">
             <Header/>
-            <Content propsCity={[usercity, setUserCity]} propsTemp={[userTemp, setUserTemp]} propsSpeed={[userSpeedOf, setUserSpeedOf]} />
+            <Content propsWeather={[weatherInfo, setWeatherInfo]} />
             <Footer/>
         </div>
     )

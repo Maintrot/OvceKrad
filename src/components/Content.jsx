@@ -2,16 +2,23 @@ import axios from 'axios'
 import { useState } from "react"
 
 export default function Content(props) {
-    const [usercity, setUserCity] = useState(props.propsCity)
-    const [userTemp, setUserTemp] = useState(props.propsTemp)
-    const [userSpeedOf, setUserSpeedOf] = useState(props.propsSpeed)
+    const [weatherInfo, setWeatherInfo] = useState(props.propsWeather)
 
-    function setInputUserCity() {
-        setUserCity(event.target.value)
+    function setInputUserCity(event) {
+        setWeatherInfo({
+            ...weatherInfo,
+            city: event.target.value
+        })
     }
 
-    function sendForm() {
-        axios
+    async function sendForm(event) {
+        event.preventDefault()
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${weatherInfo.city}&appid=dfae5829d6f01ce1b1ba68af1141edac`)
+        setWeatherInfo({
+            ...weatherInfo,
+            tempOf: response.data.main.temp,
+            speedOf: response.data.wind.speed
+        })
     }
 
     return (
@@ -34,9 +41,9 @@ export default function Content(props) {
                 </div>
                 <div className='aside-right-lst'>
                     <ul>
-                        <li className='aside-right-lst-p'>Your city: {usercity}</li>
-                        <li className='aside-right-lst-p'>Temp in there: {userTemp}</li>
-                        <li className='aside-right-lst-p'>Speed of wind: {userSpeedOf}</li>
+                        <li className='aside-right-lst-p'>Your city: {weatherInfo.city}</li>
+                        <li className='aside-right-lst-p'>Temp in there: {Math.round(weatherInfo.tempOf - 273.15)} °C</li>
+                        <li className='aside-right-lst-p'>Speed of wind: {weatherInfo.speedOf} m/s</li>
                     </ul>
                 </div>
             </div>
