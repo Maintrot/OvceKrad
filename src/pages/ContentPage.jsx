@@ -5,15 +5,16 @@ import { useState } from "react"
 
 export default function ContentPage() {
     const [weatherInfo, setWeatherInfo] = useState({
-        city: 'bishkek',
+        city: '',
         tempOf: 0,
         speedOf: 0
     })
+    const [city, setCity] = useState('')
 
     return (
         <div className="wrapper">
             <Header/>
-            <Content propsWeather={[weatherInfo, setWeatherInfo]} />
+            <Content propsWeather={[weatherInfo, setWeatherInfo]} propsCity={[city, setCity]} />
             <Footer/>
         </div>
     )

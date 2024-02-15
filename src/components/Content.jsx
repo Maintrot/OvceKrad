@@ -1,23 +1,36 @@
 import axios from 'axios'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function Content(props) {
     const [weatherInfo, setWeatherInfo] = useState(props.propsWeather)
+    const [city, setCity] = useState(props.propsCity)
 
-    function setInputUserCity(event) {
-        setWeatherInfo({
-            ...weatherInfo,
-            city: event.target.value
-        })
+    useEffect(() => {
+        const timer = setTimeout(sendForm, 2000)
+
+        return (
+            clearTimeout(timer)
+        )
+    }, [city])
+
+    async function setInputUserCity(event) {
+        setCity(
+            event.target.value
+        )
     }
 
     async function sendForm(event) {
         event.preventDefault()
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${weatherInfo.city}&appid=dfae5829d6f01ce1b1ba68af1141edac`)
-        setWeatherInfo({
-            ...weatherInfo,
-            tempOf: response.data.main.temp,
-            speedOf: response.data.wind.speed
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dc92624924f6513c59f5649ee5925180`)
+        .then((response) => {
+            setWeatherInfo({
+                city: city,
+                tempOf: response.data.main.temp,
+                speedOf: response.data.wind.speed
+            })
+        })
+        .catch(function (error) {
+            console.log(error)
         })
     }
 
@@ -28,10 +41,10 @@ export default function Content(props) {
                     <h2>Aside-left</h2>
                 </div>
                 <div className='aside-lft-frm'>
-                    <form onSubmit={sendForm} action="" method='get'>
+                    <form onSubmit={setInputUserCity} method='get'>
                         <label className='aside-lft-frm-lbl' htmlFor="city">Your city:</label>
                         <input onChange={setInputUserCity} className='aside-lft-frm-inpt' type="text" name="city" placeholder="write your city" required/>
-                        <input className='aside-lft-frm-sub' type="submit" value="Submit"/>
+                        {/* <input className='aside-lft-frm-sub' type="submit" value="Submit"/> */}
                     </form>
                 </div>
             </div>
