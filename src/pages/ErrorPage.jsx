@@ -2,7 +2,7 @@ import Error from "@/components/Error.jsx"
 
 export default function ErrorPage() {
     return(
-        <div className="wrapper">
+        <div>
             <Error/>
         </div>
     )

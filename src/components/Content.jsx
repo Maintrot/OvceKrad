@@ -8,28 +8,29 @@ export default function Content(props) {
     useEffect(() => {
         const timer = setTimeout(sendForm, 2000)
 
-        return (
+        return () => {
             clearTimeout(timer)
-        )
+        }
     }, [city])
 
-    async function setInputUserCity(event) {
+    function setInputUserCity(event) {
+        event.preventDefault()
         setCity(
             event.target.value
         )
     }
 
-    async function sendForm(event) {
-        event.preventDefault()
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dc92624924f6513c59f5649ee5925180`)
-        .then((response) => {
+    async function sendForm() {
+        const response = axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dc92624924f6513c59f5649ee5925180`)
+        .then((res) => {
+            console.log(res)
             setWeatherInfo({
                 city: city,
-                tempOf: response.data.main.temp,
-                speedOf: response.data.wind.speed
+                tempOf: res.data.main.temp,
+                speedOf: res.data.wind.speed
             })
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error)
         })
     }
@@ -49,9 +50,9 @@ export default function Content(props) {
                 </div>
             </div>
             <div className='aside-right'>
-                <div className='weather-img'>
+                {/* <div className='weather-img'>
                     <img src="" alt="" />
-                </div>
+                </div> */}
                 <div className='aside-right-lst'>
                     <ul>
                         <li className='aside-right-lst-p'>Your city: {weatherInfo.city}</li>

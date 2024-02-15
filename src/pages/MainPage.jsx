@@ -4,7 +4,7 @@ import MainLogo from "@/components/MainLogo.jsx"
 
 export default function MainPage() {
     return (
-        <div className="wrapper">
+        <div>
             <Header/>
             <MainLogo/>
             <Footer/>

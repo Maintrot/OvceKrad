@@ -12,7 +12,7 @@ export default function ContentPage() {
     const [city, setCity] = useState('')
 
     return (
-        <div className="wrapper">
+        <div>
             <Header/>
             <Content propsWeather={[weatherInfo, setWeatherInfo]} propsCity={[city, setCity]} />
             <Footer/>
